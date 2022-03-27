@@ -7,7 +7,7 @@ from belcon_mini_III import DMH
 
 
 def run_demo():
-    """Sends forward / reverse commands once."""
+    """Sends forward / reverse commands."""
     dmh = DMH(cable_port)
 
     if not dmh.get_status()[0]:  # not RUN
