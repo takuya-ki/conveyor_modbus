@@ -44,6 +44,7 @@ Controller for Belcon Mini III series DMH conveyor.
 2. Execute scripts as below  
 	`$ python src/demo.py --port COM11`
     `$ python src/check_params.py --port COM11`
+    `$ python src/commands.py --port COM11`
 
 # Author / Contributor
 
