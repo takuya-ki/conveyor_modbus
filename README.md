@@ -34,10 +34,10 @@ Controller for Belcon Mini III series DMH conveyor.
 |  Pr. 549  |  1  |
 |  Pr. 77  |  2  |
 |  Pr. 79  |  0  |
-|  Pr. 549 |  1  |
 |  Pr. 551  |  9999 (65535)  |
+|  Pr. 340  |  1  |
 
-2. Set NET mode
+1. Set NET mode
 
 # Usage
 

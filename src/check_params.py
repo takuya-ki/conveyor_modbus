@@ -28,7 +28,7 @@ def get_options():
     p = lambda x:list(map(int, x.split(',')))
     parser.add_argument(
         '--params', type=p,
-        default="160,117,118,120,122,123,124,343,502,549,77,79,551",
+        default="160,117,118,120,122,123,124,343,502,549,77,79,551,340",
         help='set parameter numbers')
     return parser.parse_args()
 
