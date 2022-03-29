@@ -34,6 +34,7 @@ Controller for Belcon Mini III series DMH conveyor.
 |  Pr. 549  |  1  |
 |  Pr. 77  |  2  |
 |  Pr. 79  |  0  |
+|  Pr. 549 |  1  |
 |  Pr. 551  |  9999 (65535)  |
 
 2. Set NET mode
@@ -42,14 +43,14 @@ Controller for Belcon Mini III series DMH conveyor.
 
 1. Connect [DINV U4 cable](https://www.diatrend.com/IFcable/usb/dinv-u4.php) between the controller for inverter and your computer.
 2. Execute scripts as below  
-	`$ python src/demo.py --port COM11`
-    `$ python src/check_params.py --port COM11`
-    `$ python src/commands.py --port COM11`
+	`$ python src/demo.py --port COM11`  
+    `$ python src/check_params.py --port COM11`  
+    `$ python src/commands.py --port COM11`  
 
 # Author / Contributor
 
 [Takuya Kiyokawa](https://takuya-ki.github.io/)
 
-## License
+# License
 
 This software is released under the MIT License, see [LICENSE](./LICENSE).
