@@ -57,7 +57,7 @@ if __name__ == '__main__':
     args = get_options()
     directions = ['normal', 'reverse']
     direction1 = args.direction
-    direction2 = directions[not directions.index(direction)]
+    direction2 = directions[not directions.index(direction1)]
     run_reciprocation_demo(
         args.reciprocation,
         args.speed,

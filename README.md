@@ -53,7 +53,7 @@ Controller for Belcon Mini III series DMH conveyor.
 2. Execute scripts on a local machine as below  
     `$ python src/commands.py --port COM11 --command_from external`  
 3. Execute scripts on an external machine as below  
-    `$ python src/demo_external.py --port COM11 --reciprocation 1 --speed high --first_direction reverse`  
+    `$ python src/demo_external.py --reciprocation 1 --speed high --first_direction reverse`  
 
 # Author / Contributor
 
