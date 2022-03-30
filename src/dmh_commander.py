@@ -1,0 +1,53 @@
+#!/usr/bin/env python3
+
+import time
+import socket
+
+
+class DMHCommander(object):
+
+    def __init__(self):
+        # host name/IP address of the server (dmh controller)
+        self.host = "169.0.0.1"
+        self.port = 50007
+        self.end_message = "complete"
+        self.opening()
+
+    def opening(self):
+        while True:
+            print("Waiting for server to start up...")
+            try:
+                self.dmhctr = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+                self.dmhctr.connect((self.host, self.port))
+                break
+            except socket.error as e:
+                print("Failed to connect with the dmh controller, try reconnect.")
+                time.sleep(1.0)
+
+    def closing(self):
+        # finalizing the position
+        try:
+            self.dmhctr.sendall(self.end_message.encode('utf-8'))
+            self.dmhctr.close()
+        except:
+            print("Some errors to close the process around the dmhctr instance.")
+
+        print("Ended the demostoration successfully!")
+
+    def sendcommand(self, keystr):
+        if self.dmhctr is not None:
+            try:
+                self.dmhctr.sendall(keystr.encode('utf-8'))
+                while True:
+                    response = self.dmhctr.recv(4096)
+                    if response.decode('utf-8') == self.end_message:
+                        print(response.decode('utf-8'))
+                        break
+                    else:
+                        print("Waiting for completion.")
+                        time.sleep(1.)
+            except:
+                print("Error: command sending was failed.")
+                pass
+        else:
+            print("Error: dmh controller instance is None...")
