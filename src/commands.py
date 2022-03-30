@@ -1,14 +1,13 @@
 #!/usr/bin/env python3
 
-import time
 import socket
 import argparse
 
 from belcon_mini_III import DMH
 
 
-def commands():
-    """Sends forward / reverse commands."""
+def commands(cable_port, command_mode):
+    """Sends commands."""
     dmh = DMH(cable_port)
     dmh.get_set_mode()
 
@@ -18,11 +17,11 @@ def commands():
         completemsg = 'complete'.encode('utf-8')
         serversock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         serversock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
-        serversock.bind((ip, port))     # binding with set IP and PORT
-        serversock.listen(10)           # listening the connection (max num of the que)
+        serversock.bind((ip, port))
+        serversock.listen(10)
         serversock.settimeout(300)
         print('Waiting for connections...')
-        clientsock, client_address = serversock.accept() # store the data if it's connected
+        clientsock, client_address = serversock.accept()
         clientsock.settimeout(3600)
 
     while True:
@@ -37,39 +36,39 @@ def commands():
                 # TODO: check if it's working properly
                 clientsock.sendall(completemsg)
             break
-        elif key == 'fl':
-            print("Forward with low speed.")
-            dmh.forward('low')
+        elif key == 'nl':
+            print("Normal with low speed.")
+            dmh.move('normal', 'low')
             if command_mode == 'external':
                 # TODO: check if it's working properly
                 clientsock.sendall(completemsg)
-        elif key == 'fm':
-            print("Forward with middle speed.")
-            dmh.forward('middle')
+        elif key == 'nm':
+            print("Normal with middle speed.")
+            dmh.move('normal', 'middle')
             if command_mode == 'external':
                 # TODO: check if it's working properly
                 clientsock.sendall(completemsg)
-        elif key == 'fh':
-            print("Forward with high speed.")
-            dmh.forward('high')
+        elif key == 'nh':
+            print("Normal with high speed.")
+            dmh.move('normal', 'high')
             if command_mode == 'external':
                 # TODO: check if it's working properly
                 clientsock.sendall(completemsg)
-        elif key == 'il':
-            print("Inverse with low speed.")
-            dmh.inverse('low')
+        elif key == 'rl':
+            print("Reverse with low speed.")
+            dmh.move('reverse', 'low')
             if command_mode == 'external':
                 # TODO: check if it's working properly
                 clientsock.sendall(completemsg)
-        elif key == 'im':
-            print("Inverse with middle speed.")
-            dmh.inverse('middle')
+        elif key == 'rm':
+            print("Reverse with middle speed.")
+            dmh.move('reverse', 'middle')
             if command_mode == 'external':
                 # TODO: check if it's working properly
                 clientsock.sendall(completemsg)
-        elif key == 'ih':
-            print("Inverse with high speed.")
-            dmh.inverse('high')
+        elif key == 'rh':
+            print("Reverse with high speed.")
+            dmh.move('reverse', 'high')
             if command_mode == 'external':
                 # TODO: check if it's working properly
                 clientsock.sendall(completemsg)
@@ -79,7 +78,7 @@ def commands():
             if command_mode == 'external':
                 # TODO: check if it's working properly
                 clientsock.sendall(completemsg)
-        time.sleep(0.1)
+        dmh.sleep_with_displaying_freq(0.1)
 
     if command_mode == 'external':
         clientsock.close()
@@ -88,12 +87,15 @@ def commands():
 
 def get_options():
     """Returns user-specific options."""
-    parser = argparse.ArgumentParser(description='Set options.')
+    parser = argparse.ArgumentParser(
+        description='Set options.')
     parser.add_argument(
-        '--port', dest='port', type=str, default="COM11",
+        '--port', dest='port',
+        type=str, default="COM11",
         help='set usb port number for the cable')
     parser.add_argument(
-        '--command_from', dest='command_from', type=str,
+        '--command_from', dest='command_from',
+        type=str, default='local',
         choices=['local', 'external'],
         help='set mode, [local] or [external]')
     return parser.parse_args()
@@ -101,6 +103,4 @@ def get_options():
 
 if __name__ == '__main__':
     args = get_options()
-    cable_port = args.port
-    command_mode = args.command_from
-    commands()
+    commands(args.port, args.command_from)

@@ -43,7 +43,7 @@ Controller for Belcon Mini III series DMH conveyor.
 
 1. Connect [DINV U4 cable](https://www.diatrend.com/IFcable/usb/dinv-u4.php) between the controller for inverter and your computer.
 2. Execute scripts on a local machine as below  
-	`$ python src/demo_local.py --port COM11`  
+	`$ python src/demo_local.py --port COM11 --reciprocation 1 --speed high --first_direction reverse`  
     `$ python src/check_params.py --port COM11`  
     `$ python src/commands.py --port COM11 --command_from local`  
 
@@ -53,7 +53,7 @@ Controller for Belcon Mini III series DMH conveyor.
 2. Execute scripts on a local machine as below  
     `$ python src/commands.py --port COM11 --command_from external`  
 3. Execute scripts on an external machine as below  
-    `$ python src/demo_external.py --port COM11`  
+    `$ python src/demo_external.py --port COM11 --reciprocation 1 --speed high --first_direction reverse`  
 
 # Author / Contributor
 

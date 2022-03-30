@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+import time
 
 from pymodbus.client.sync import ModbusSerialClient as ModbusClient
 
@@ -29,19 +30,19 @@ class DMH():
         """Reads current device status.
         This status field indicates the status of the conveyor and its motion.
         It is composed of 16 flags, described in the table below.
-        Bit      Name                   Description
-        0 (LSB): RUN                    High (1) when the inverter is in operation.
-        1:       forward                High (1) when it is driven by forward rotation.
-        2:       inverse                High (1) when it is driven by inverse rotation.
-        3:       SU (reach freq)        High (1) when the speed reached target frequency.
-        4:       OL (overload)          High (1) when it detects overload.
-        5:       reserved               Not used. Always 0.
-        6:       FU (detect freq)       High (1) when it detects frequency set on Pr.42/43.
-        7:       ABC (abnormal)         High (1) when it detects abnormal state.
-        8:       reserved               Not used. Always 0.
-        9:       SO (safety monitor)    High (1) when the safety stop is in operation.
-        10 - 14: reserved               Not used. Always 0.
-        15:      Abnormal occurrence    High (1) when an abnormal state is detected.
+        Bit      Name                  Description
+        0 (LSB): RUN                   1 when the inverter is in operation.
+        1:       normal                1 when it is driven by normal rotation.
+        2:       reverse               1 when it is driven by reverse rotation.
+        3:       SU (reach freq)       1 when it reached target frequency.
+        4:       OL (overload)         1 when it detects overload.
+        5:       reserved              Not used. Always 0.
+        6:       FU (detect freq)      1 when it detects frequency of Pr.42/43.
+        7:       ABC (abnormal)        1 when it detects abnormal state.
+        8:       reserved              Not used. Always 0.
+        9:       SO (safety monitor)   1 when the safety stop is in operation.
+        10 - 14: reserved              Not used. Always 0.
+        15:      Abnormal occurrence   1 when an abnormal state is detected.
         """
         # address   : register number
         # count     : number of registers to be read
@@ -54,10 +55,10 @@ class DMH():
             print("RUN (in operation).")
             status_list[0] = 1
         if int(status[-2]):
-            print("Forward rotation.")
+            print("Normal rotation.")
             status_list[1] = 1
         if int(status[-3]):
-            print("Inverse rotation.")
+            print("Reverse rotation.")
             status_list[2] = 1
         if int(status[-4]):
             print("Reached target frequency.")
@@ -124,38 +125,35 @@ class DMH():
     def stop(self):
         """Stops operations."""
         # address   : register number
-        # values    : data to be written 
+        # values    : data to be written
         # unit      : slave adress
         request = self.client.write_registers(
             address=8, values=[0], unit=1)
 
-    def forward(self, speed='low'):
-        """Executes forward rotation with target speed mode (low/middle/high)."""
+    def move(self, direction='normal', speed='low'):
+        """Executes normal/reverse rotations with target speed."""
         # address   : register number
-        # values    : data to be written 
+        # values    : data to be written
         # unit      : slave adress
-        if speed=='low':
-            speed_val = 32
-        elif speed=='middle':
-            speed_val = 16
-        elif speed=='high':
-            speed_val = 8
-        request = self.client.write_registers(
-            address=8, values=[2+speed_val], unit=1)
 
-    def inverse(self, speed='low'):
-        """Executes inverse rotation with target speed mode (low/middle/high)."""
-        # address   : register number
-        # values    : data to be written 
-        # unit      : slave adress
-        if speed=='low':
+        if direction == 'normal':
+            set_value = 2
+        elif direction == 'reverse':
+            set_value = 4
+        else:
+            print("Select one from normal or reverse for direction.")
+
+        if speed == 'low':
             speed_val = 32
-        elif speed=='middle':
+        elif speed == 'middle':
             speed_val = 16
-        elif speed=='high':
+        elif speed == 'high':
             speed_val = 8
+        else:
+            print("Select one from low, middle, or high for speed.")
+
         request = self.client.write_registers(
-            address=8, values=[4+speed_val], unit=1)
+            address=8, values=[set_value+speed_val], unit=1)
 
     def set_net_mode(self):
         """Sets inverter operation mode as NET mode."""
@@ -195,3 +193,16 @@ class DMH():
         """Sets target frequency on EEPROM."""
         request = self.client.write_registers(
             address=14, values=[freq], unit=1)
+
+    def sleep_with_displaying_freq(self, sleep_sec):
+        """Sleeps and displays frequency currently set."""
+        start = time.time()
+        while True:
+            time.sleep(0.1)
+            print("Frequency: " +
+                  str(self.get_actual_frequency()) +
+                  " / " +
+                  str(self.get_set_frequency()) +
+                  " [Hz/100]")
+            if (time.time() - start) > sleep_sec:
+                break

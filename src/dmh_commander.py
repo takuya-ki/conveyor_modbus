@@ -21,7 +21,7 @@ class DMHCommander(object):
                 self.dmhctr.connect((self.host, self.port))
                 break
             except socket.error as e:
-                print("Failed to connect with the dmh controller, try reconnect.")
+                print("Failed to connect, try reconnect.")
                 time.sleep(1.0)
 
     def closing(self):
@@ -29,8 +29,8 @@ class DMHCommander(object):
         try:
             self.dmhctr.sendall(self.end_message.encode('utf-8'))
             self.dmhctr.close()
-        except:
-            print("Some errors to close the process around the dmhctr instance.")
+        except socket.error as e:
+            print("Closing error for the dmhctr instance.")
 
         print("Ended the demostoration successfully!")
 
@@ -46,7 +46,7 @@ class DMHCommander(object):
                     else:
                         print("Waiting for completion.")
                         time.sleep(1.)
-            except:
+            except socket.error as e:
                 print("Error: command sending was failed.")
                 pass
         else:

@@ -25,7 +25,8 @@ def get_options():
     parser.add_argument(
         '--port', dest='port', type=str, default="COM11",
         help='set usb port number for the cable')
-    p = lambda x:list(map(int, x.split(',')))
+
+    def p(x): return list(map(int, x.split(',')))
     parser.add_argument(
         '--params', type=p,
         default="160,117,118,120,122,123,124,343,502,549,77,79,551,340",
@@ -35,6 +36,6 @@ def get_options():
 
 if __name__ == '__main__':
     args = get_options()
-    cable_port = args.port
-    param_list = args.params
-    check_params(param_list)
+    check_params(
+        args.port,
+        args.params)
