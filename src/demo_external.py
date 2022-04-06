@@ -7,9 +7,14 @@ from dmh_commander import DMHCommander
 
 
 def run_reciprocation_demo(
-        num, speed, direction1, direction2):
+        ip,
+        sockport,
+        num_repeat,
+        speed,
+        direction1,
+        direction2):
     """Reciprocation movement with some commands."""
-    dmhctr = DMHCommander()
+    dmhctr = DMHCommander(ip, sockport)
     time.sleep(1)
     if speed == 'low':
         sleep_sec = 30
@@ -18,7 +23,7 @@ def run_reciprocation_demo(
     elif speed == 'high':
         sleep_sec = 10
 
-    for i in range(num):
+    for i in range(num_repeat):
         dmhctr.sendcommand(direction1[0] + speed[0])
         time.sleep(sleep_sec)
         dmhctr.sendcommand('stop')
@@ -37,7 +42,7 @@ def get_options():
     parser = argparse.ArgumentParser(
         description='Set options.')
     parser.add_argument(
-        '--reciprocation', dest='reciprocation',
+        '--num_repeat', dest='num_repeat',
         type=int, default=1,
         help='set numbet of reciprocation demo')
     parser.add_argument(
@@ -46,10 +51,18 @@ def get_options():
         choices=['low', 'middle', 'high'],
         help='set movement speed')
     parser.add_argument(
-        '--first_direction', dest='direction',
+        '--initial_direction', dest='direction',
         type=str, default='normal',
         choices=['normal', 'reverse'],
-        help='set movement direction')
+        help='set a movement direction (initial state)')
+    parser.add_argument(
+        '--ip', dest='ip',
+        type=str, default="169.0.0.1",
+        help='set ip address set for the local machine')
+    parser.add_argument(
+        '--sockport', dest='sockport',
+        type=int, default=50007,
+        help='set port number for the socket connection')
     return parser.parse_args()
 
 
@@ -59,7 +72,9 @@ if __name__ == '__main__':
     direction1 = args.direction
     direction2 = directions[not directions.index(direction1)]
     run_reciprocation_demo(
-        args.reciprocation,
+        args.ip,
+        args.sockport,
+        args.num_repeat,
         args.speed,
         direction1,
         direction2)

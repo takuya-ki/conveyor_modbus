@@ -6,9 +6,9 @@ import argparse
 from belcon_mini_III import DMH
 
 
-def check_params(param_list):
+def check_params(usbport, param_list):
     """Checks parameter values."""
-    dmh = DMH(cable_port)
+    dmh = DMH(usbport)
 
     if not dmh.get_status()[0]:  # not RUN
         dmh.get_set_mode()
@@ -23,8 +23,8 @@ def get_options():
     """Returns user-specific options."""
     parser = argparse.ArgumentParser(description='Set options.')
     parser.add_argument(
-        '--port', dest='port', type=str, default="COM11",
-        help='set usb port number for the cable')
+        '--usbport', dest='usbport', type=str, default="COM11",
+        help='set usb port number for the DINV U4 cable')
 
     def p(x): return list(map(int, x.split(',')))
     parser.add_argument(
@@ -37,5 +37,5 @@ def get_options():
 if __name__ == '__main__':
     args = get_options()
     check_params(
-        args.port,
+        args.usbport,
         args.params)

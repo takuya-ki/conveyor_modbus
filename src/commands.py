@@ -6,18 +6,20 @@ import argparse
 from belcon_mini_III import DMH
 
 
-def commands(cable_port, command_mode):
+def commands(
+        usbport,
+        command_mode,
+        ip,
+        sockport):
     """Sends commands."""
-    dmh = DMH(cable_port)
+    dmh = DMH(usbport)
     dmh.get_set_mode()
 
     if command_mode == 'external':
-        ip = '169.0.0.1'
-        port = 50007
         completemsg = 'complete'.encode('utf-8')
         serversock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         serversock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
-        serversock.bind((ip, port))
+        serversock.bind((ip, sockport))
         serversock.listen(10)
         serversock.settimeout(300)
         print('Waiting for connections...')
@@ -90,17 +92,29 @@ def get_options():
     parser = argparse.ArgumentParser(
         description='Set options.')
     parser.add_argument(
-        '--port', dest='port',
+        '--usbport', dest='usbport',
         type=str, default="COM11",
-        help='set usb port number for the cable')
+        help='set usb port number for the DINV U4 cable')
     parser.add_argument(
         '--command_from', dest='command_from',
         type=str, default='local',
         choices=['local', 'external'],
         help='set mode, [local] or [external]')
+    parser.add_argument(
+        '--ip', dest='ip',
+        type=str, default="169.0.0.1",
+        help='set ip address set for the local machine')
+    parser.add_argument(
+        '--sockport', dest='sockport',
+        type=int, default=50007,
+        help='set port number for the socket connection')
     return parser.parse_args()
 
 
 if __name__ == '__main__':
     args = get_options()
-    commands(args.port, args.command_from)
+    commands(
+        args.usbport,
+        args.command_from,
+        args.ip,
+        args.sockport)

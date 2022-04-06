@@ -6,10 +6,10 @@ import socket
 
 class DMHCommander(object):
 
-    def __init__(self):
+    def __init__(self, hostip, sockport):
         # host name/IP address of the server (dmh controller)
-        self.host = "169.0.0.1"
-        self.port = 50007
+        self.hostip = hostip
+        self.port = sockport
         self.end_message = "complete"
         self.opening()
 
@@ -18,7 +18,7 @@ class DMHCommander(object):
             print("Waiting for server to start up...")
             try:
                 self.dmhctr = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-                self.dmhctr.connect((self.host, self.port))
+                self.dmhctr.connect((self.hostip, self.port))
                 break
             except socket.error as e:
                 print("Failed to connect, try reconnect.")

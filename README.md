@@ -4,7 +4,8 @@ Controller for Belcon Mini III series DMH conveyor.
 
 # Requirements
 
-- Windows10 
+- Windows 10 machine
+- Ubuntu machine (for an external machine)
 - Python 3.7.3
   - pymodbus>=2.5.3
 
@@ -39,21 +40,23 @@ Controller for Belcon Mini III series DMH conveyor.
 
 1. Set NET mode
 
-# Usage on local machine
+# Usage examples
+### Directly commanding on a Windows 10 machine (ip address: 169.0.0.1, subnet mask: 255:255:255:0)
 
 1. Connect [DINV U4 cable](https://www.diatrend.com/IFcable/usb/dinv-u4.php) between the controller for inverter and your computer.
-2. Execute scripts on a local machine as below  
-	`$ python src/demo_local.py --port COM11 --reciprocation 1 --speed high --first_direction reverse`  
-    `$ python src/check_params.py --port COM11`  
-    `$ python src/commands.py --port COM11 --command_from local`  
+2. Execute scripts on the Windows 10 machine as below  
+	`$ python src/demo_local.py --usbport COM11 --num_repeat 1 --speed high --initial_direction reverse`  
+    `$ python src/check_params.py --usbport COM11 --params 160,117,118,120,122,123,124,343,502,549,77,79,551,340`  
+    `$ python src/commands.py --usbport COM11 --command_from local`  
 
-# Usage with commands from external machine
+### Sending commands from an Ubuntu machine (ip address: 169.0.0.2, subnet mask: 255:255:255:0)
 
 1. Connect [DINV U4 cable](https://www.diatrend.com/IFcable/usb/dinv-u4.php) between the controller for inverter and your computer.
-2. Execute scripts on a local machine as below  
-    `$ python src/commands.py --port COM11 --command_from external`  
-3. Execute scripts on an external machine as below  
-    `$ python src/demo_external.py --reciprocation 1 --speed high --first_direction reverse`  
+2. Make a local area network via a network hub by connecting between computers and the hub
+3. Execute scripts on the Windows 10 machine as below  
+    `$ python src/commands.py --usbport COM11 --command_from external --ip 160.0.0.1 --sockport 50007`  
+4. Execute scripts on the Ubuntu machine as below  
+    `$ python src/demo_external.py --num_repeat 1 --speed high --initial_direction reverse --ip 160.0.0.1 --sockport 50007`  
 
 # Author / Contributor
 

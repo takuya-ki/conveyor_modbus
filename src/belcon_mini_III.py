@@ -6,10 +6,10 @@ from pymodbus.client.sync import ModbusSerialClient as ModbusClient
 
 class DMH():
 
-    def __init__(self, port):
+    def __init__(self, usbport):
         self.client = ModbusClient(
             method="rtu",
-            port=port,
+            port=usbport,
             stopbits=1,
             bytesize=8,
             parity='E',
