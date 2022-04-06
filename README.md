@@ -38,14 +38,14 @@ Controller for Belcon Mini III series DMH conveyor.
 |  Pr. 551  |  9999 (65535)  |
 |  Pr. 340  |  1  |
 
-1. Set NET mode
+2. Set NET mode
 
 # Usage examples
 ### Directly commanding on a Windows 10 machine (ip address: 169.0.0.1, subnet mask: 255:255:255:0)
 
 1. Connect [DINV U4 cable](https://www.diatrend.com/IFcable/usb/dinv-u4.php) between the controller for inverter and your computer.
 2. Execute scripts on the Windows 10 machine as below  
-	`$ python src/demo_local.py --usbport COM11 --num_repeat 1 --speed high --initial_direction reverse`  
+	`$ python src/demo.py --usbport COM11 --num_repeat 1 --speed high --initial_direction reverse`  
     `$ python src/check_params.py --usbport COM11 --params 160,117,118,120,122,123,124,343,502,549,77,79,551,340`  
     `$ python src/commands.py --usbport COM11 --command_from local`  
 
