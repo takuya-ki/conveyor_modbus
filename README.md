@@ -2,12 +2,14 @@
 
 Controller for Belcon Mini III series DMH conveyor.
 
+
 # Requirements
 
 - Windows 10 machine
 - Ubuntu machine (for an external machine)
 - Python 3.7.3
   - pymodbus>=2.5.3
+
 
 # Installation
 
@@ -40,6 +42,7 @@ Controller for Belcon Mini III series DMH conveyor.
 
 2. Set NET mode
 
+
 # Usage examples
 ### Directly commanding on a Windows 10 machine (ip address: 169.0.0.1, subnet mask: 255:255:255:0)
 
@@ -53,10 +56,19 @@ Controller for Belcon Mini III series DMH conveyor.
 
 1. Connect [DINV U4 cable](https://www.diatrend.com/IFcable/usb/dinv-u4.php) between the controller for inverter and your computer.
 2. Make a local area network via a network hub by connecting between computers and the hub
+
+#### Programmed demonstration
 3. Execute scripts on the Windows 10 machine as below  
-    `$ python src/commands.py --usbport COM11 --command_from external --ip 160.0.0.1 --sockport 50007`  
+    `$ python src/commands.py --usbport COM11 --command_from external --ip 169.0.0.1 --sockport 50007`  
 4. Execute scripts on the Ubuntu machine as below  
-    `$ python src/demo_external.py --num_repeat 1 --speed high --initial_direction reverse --ip 160.0.0.1 --sockport 50007`  
+    `$ python src/demo_external.py --num_repeat 1 --speed high --initial_direction reverse --ip 169.0.0.1 --sockport 50007`  
+
+#### User's input commands
+3. Execute scripts on the Windows 10 machine as below  
+    `$ python src/commands.py --usbport COM11 --command_from external --ip 169.0.0.1 --sockport 50007`  
+4. Execute scripts on the Ubuntu machine as below  
+    `$ python src/commands_external.py --ip 169.0.0.1 --sockport 50007`  
+
 
 # Author / Contributor
 

@@ -6,14 +6,14 @@ import argparse
 from belcon_mini_III import DMH
 
 
-def check_params(usbport, param_list):
+def check_params(usbport, params):
     """Checks parameter values."""
     dmh = DMH(usbport)
 
     if not dmh.get_status()[0]:  # not RUN
         dmh.get_set_mode()
 
-        for p in param_list:
+        for p in params:
             print("Pr. "+str(p)+": "+str(dmh.get_set_parameters(p-1)))
 
     dmh.close_connection()
