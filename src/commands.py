@@ -28,7 +28,16 @@ def commands(
 
     while True:
         if command_mode == 'local':
-            key = input()
+            key = input("\n-----\nAvailable commands \
+                        \n\nnl: normal rotation with low speed \
+                        \nnm: normal rotation with middle speed \
+                        \nnh: normal rotation with high speed \
+                        \nrl: reverse rotation with low speed \
+                        \nrm: reverse rotation with middle speed \
+                        \nrh: reverse rotation with high speed \
+                        \nstop: stop the motion \
+                        \ncomplete: finish program \
+                        \n-->")
         elif command_mode == 'external':
             key = clientsock.recv(1024).decode('utf-8')
         if key == 'complete':
