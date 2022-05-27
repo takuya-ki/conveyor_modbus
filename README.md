@@ -44,29 +44,34 @@ Controller for Belcon Mini III series DMH conveyor.
 
 
 # Usage examples
-### Directly commanding on a Windows 10 machine (ip address: 169.0.0.1, subnet mask: 255:255:255:0)
+## Preparations
 
-1. Connect [DINV U4 cable](https://www.diatrend.com/IFcable/usb/dinv-u4.php) between the controller for inverter and your computer.
-2. Execute scripts on the Windows 10 machine as below  
-	`$ python src/demo.py --usbport COM11 --num_repeat 1 --speed high --initial_direction reverse`  
-    `$ python src/check_params.py --usbport COM11 --params 160,117,118,120,122,123,124,343,502,549,77,79,551,340`  
-    `$ python src/commands.py --usbport COM11 --command_from local`  
+#### Check the port numer with device manager (e.g. COM7)  
+<img src=image/device_manager.png width=500>  
 
-### Sending commands from an Ubuntu machine (ip address: 169.0.0.2, subnet mask: 255:255:255:0)
+#### Connect [DINV U4 cable](https://www.diatrend.com/IFcable/usb/dinv-u4.php) between the controller for inverter and your computer.
+<img src=image/connection.jpg width=200>  
 
-1. Connect [DINV U4 cable](https://www.diatrend.com/IFcable/usb/dinv-u4.php) between the controller for inverter and your computer.
-2. Make a local area network via a network hub by connecting between computers and the hub
+## Directly commanding on a Windows 10 machine (ip address: 169.0.0.1, subnet mask: 255:255:255:0)
+1. Execute scripts (Check no objects on the conveyor!)  
+    `$ python src/demo.py --usbport COM7 --num_repeat 1 --speed high --initial_direction reverse`  
+    `$ python src/check_params.py --usbport COM7 --params 160,117,118,120,122,123,124,343,502,549,77,79,551,340`  
+    `$ python src/commands.py --usbport COM7 --command_from local`  
+
+## Sending commands from an Ubuntu machine (ip address: 169.0.0.2, subnet mask: 255:255:255:0)
+
+1. Make a local area network via a network hub by connecting between computers and the hub
 
 #### Programmed demonstration
-3. Execute scripts on the Windows 10 machine as below  
-    `$ python src/commands.py --usbport COM11 --command_from external --ip 169.0.0.1 --sockport 50007`  
-4. Execute scripts on the Ubuntu machine as below  
+2. Execute scripts on the Windows 10 machine as below (Check no objects on the conveyor!)  
+    `$ python src/commands.py --usbport COM7 --command_from external --ip 169.0.0.1 --sockport 50007`  
+3. Execute scripts on the Ubuntu machine as below (Check no objects on the conveyor!)  
     `$ python src/demo_external.py --num_repeat 1 --speed high --initial_direction reverse --ip 169.0.0.1 --sockport 50007`  
 
 #### User's input commands
-3. Execute scripts on the Windows 10 machine as below  
-    `$ python src/commands.py --usbport COM11 --command_from external --ip 169.0.0.1 --sockport 50007`  
-4. Execute scripts on the Ubuntu machine as below  
+2. Execute scripts on the Windows 10 machine as below (Check no objects on the conveyor!)  
+    `$ python src/commands.py --usbport COM7 --command_from external --ip 169.0.0.1 --sockport 50007`  
+3. Execute scripts on the Ubuntu machine as below (Check no objects on the conveyor!)  
     `$ python src/commands_external.py --ip 169.0.0.1 --sockport 50007`  
 
 
