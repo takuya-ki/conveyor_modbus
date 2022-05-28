@@ -64,16 +64,14 @@ Controller for Belcon Mini III series DMH conveyor.
 ## Sending commands from an Ubuntu machine (ip address: 169.0.0.2, subnet mask: 255:255:255:0)
 
 1. Make a local area network via a network hub by connecting between computers and the hub
-
-#### Programmed demonstration
 2. Execute scripts on the Windows 10 machine as below (Check no objects on the conveyor!)  
     `$ python src/commands.py --usbport COM7 --command_from external --ip 169.0.0.1 --sockport 50007`  
+
+#### Programmed demonstration  
 3. Execute scripts on the Ubuntu machine as below (Check no objects on the conveyor!)  
     `$ python src/demo_external.py --num_repeat 1 --speed high --initial_direction reverse --ip 169.0.0.1 --sockport 50007`  
 
-#### User's input commands
-2. Execute scripts on the Windows 10 machine as below (Check no objects on the conveyor!)  
-    `$ python src/commands.py --usbport COM7 --command_from external --ip 169.0.0.1 --sockport 50007`  
+#### User's input commands  
 3. Execute scripts on the Ubuntu machine as below (Check no objects on the conveyor!)  
     `$ python src/commands_external.py --ip 169.0.0.1 --sockport 50007`  
 
