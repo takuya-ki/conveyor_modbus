@@ -8,7 +8,7 @@ Controller for Belcon Mini III series DMH conveyor.
 - Windows 10 machine
 - Ubuntu machine (for an external machine)
 - Python 3.7.3
-  - pymodbus>=2.5.3
+  - pymodbus==2.5.3
 
 
 # Installation
