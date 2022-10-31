@@ -70,7 +70,7 @@ Controller for Belcon Mini III series DMH conveyor.
 1. Make a local area network via a network hub by connecting between computers and the hub  
 <img src=image/network_ubuntu.png width=400>  
 
-1. Execute scripts on the Windows 10 machine as below (Check no objects on the conveyor!)  
+2. Execute scripts on the Windows 10 machine as below (Check no objects on the conveyor!)  
     `$ python src/commands.py --command_from external --ip 169.0.0.1 --sockport 50007`  
 
 #### Programmed demonstration  
