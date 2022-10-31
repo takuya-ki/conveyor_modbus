@@ -14,7 +14,6 @@ def commands(
     """Sends commands."""
     dmh = DMH(usbport)
     dmh.get_set_mode()
-    max_freq_hz = 40000  # 400 [hz]
 
     if command_mode == 'external':
         completemsg = 'complete'.encode('utf-8')
@@ -116,7 +115,7 @@ def get_options():
         description='Set options.')
     parser.add_argument(
         '--usbport', dest='usbport',
-        type=str, default="COM11",
+        type=str, default=None,
         help='set usb port number for the DINV U4 cable')
     parser.add_argument(
         '--command_from', dest='command_from',

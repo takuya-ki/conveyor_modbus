@@ -23,7 +23,7 @@ def get_options():
     """Returns user-specific options."""
     parser = argparse.ArgumentParser(description='Set options.')
     parser.add_argument(
-        '--usbport', dest='usbport', type=str, default="COM11",
+        '--usbport', dest='usbport', type=str, default=None,
         help='set usb port number for the DINV U4 cable')
 
     def p(x): return list(map(int, x.split(',')))

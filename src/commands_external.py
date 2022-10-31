@@ -18,20 +18,13 @@ def commands_to_host(ip, sockport):
                     \nrl: reverse rotation with low speed \
                     \nrm: reverse rotation with middle speed \
                     \nrh: reverse rotation with high speed \
+                    \nnXX (rYY): drive with set rotation and set speed [Hz/100] \
                     \nstop: stop the motion \
                     \ncomplete: finish program \
                     \n-->")
-        if key in ['complete',
-                   'nl',
-                   'nm',
-                   'nh',
-                   'rl',
-                   'rm',
-                   'rh',
-                   'stop']:
-            dmhctr.sendcommand(key)
-            if key == 'complete':
-                break
+        dmhctr.sendcommand(key)
+        if key == 'complete':
+            break
         time.sleep(0.1)
 
     dmhctr.closing()
