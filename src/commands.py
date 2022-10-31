@@ -14,6 +14,7 @@ def commands(
     """Sends commands."""
     dmh = DMH(usbport)
     dmh.get_set_mode()
+    max_freq_hz = 40000  # 400 [hz]
 
     if command_mode == 'external':
         completemsg = 'complete'.encode('utf-8')
@@ -35,6 +36,7 @@ def commands(
                         \nrl: reverse rotation with low speed \
                         \nrm: reverse rotation with middle speed \
                         \nrh: reverse rotation with high speed \
+                        \nnXX (rYY): drive with set rotation and set speed [Hz/100] \
                         \nstop: stop the motion \
                         \ncomplete: finish program \
                         \n-->")
@@ -89,6 +91,18 @@ def commands(
             if command_mode == 'external':
                 # TODO: check if it's working properly
                 clientsock.sendall(completemsg)
+        else:
+            if key[0] in ['n', 'r']:
+                if key[0] == 'n':
+                    direction = 'normal'
+                elif key[0] == 'r':
+                    direction = 'reverse'
+                try:
+                    dmh.move(direction, key[1:])
+                except ValueError:
+                    pass
+            else:
+                pass
         dmh.sleep_with_displaying_freq(0.1)
 
     if command_mode == 'external':

@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+
 import time
 
 from pymodbus.client.sync import ModbusSerialClient as ModbusClient
@@ -16,6 +17,7 @@ class DMH():
             baudrate=19200,
             timeout=3,
             strict=False)
+        self._max_freq_hz = 40000
         self.open_connection()
 
     def open_connection(self):
@@ -150,7 +152,13 @@ class DMH():
         elif speed == 'high':
             speed_val = 8
         else:
-            print("Select one from low, middle, or high for speed.")
+            speed_val = 0
+            try:
+                self.set_frequency_on_RAM(
+                    min(self._max_freq_hz, int(speed)))
+            except ValueError:
+                print("Select low/middle/high or input frequency.")
+                pass
 
         request = self.client.write_registers(
             address=8, values=[set_value+speed_val], unit=1)
