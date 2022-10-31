@@ -8,6 +8,7 @@ Controller for Belcon Mini III series DMH conveyor.
 - Windows 10 machine
 - Ubuntu machine (for an external machine)
 - Python 3.7.3
+  - pyserial==3.5
   - pymodbus==2.5.3
 
 
@@ -16,8 +17,8 @@ Controller for Belcon Mini III series DMH conveyor.
 1. Install driver for [DINV U4 cable](https://www.diatrend.com/IFcable/usb/dinv-u4.php)  
    Install USB serial converter from [here](https://www.diatrend.com/download/driver.htm)  
 2. Install software  
-	`$ git clone git@github.com:takuya-ki/conveyor_modbus.git; cd conveyor_modbus`  
-	`$ pip install -r requirements.txt`
+	`$ git clone git@github.com:takuya-ki/conveyor_modbus.git --depth 1`  
+	`$ cd conveyor_modbus; pip install -r requirements.txt`
 
 ### Setting of inverter controller
 
