@@ -2,12 +2,16 @@
 
 import time
 
+import serial
+from serial.tools import list_ports
 from pymodbus.client.sync import ModbusSerialClient as ModbusClient
 
 
 class DMH():
 
     def __init__(self, usbport):
+        if usbport is None:
+            usbport = self.select_port()
         self.client = ModbusClient(
             method="rtu",
             port=usbport,
@@ -27,6 +31,26 @@ class DMH():
     def close_connection(self):
         """Closes the connection with the conveyor."""
         self.client.close()
+
+    def select_port(self):
+        """Selects a port."""
+        ports = list_ports.comports()
+        devices = [info.device for info in ports]
+
+        if len(devices) == 0:
+            print("Error: any devices not found")
+            return None
+        elif len(devices) == 1:
+            print("%s is only found" % devices[0])
+            selected_port = devices[0]
+        else:
+            for i in range(len(devices)):
+                print("input %3d: open %s" % (i, devices[i]))
+            print("input number of target port >> ", end="")
+            num = int(input())
+            selected_port = devices[num]
+
+        return selected_port
 
     def get_status(self):
         """Reads current device status.

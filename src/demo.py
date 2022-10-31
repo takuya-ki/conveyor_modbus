@@ -46,7 +46,7 @@ def get_options():
         description='Set options.')
     parser.add_argument(
         '--usbport', dest='usbport',
-        type=str, default="COM11",
+        type=str, default=None,
         help='set usb port number for the cable')
     parser.add_argument(
         '--num_repeat', dest='num_repeat',

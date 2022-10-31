@@ -14,7 +14,6 @@ def commands(
     """Sends commands."""
     dmh = DMH(usbport)
     dmh.get_set_mode()
-    max_freq_hz = 40000  # 400 [hz]
 
     if command_mode == 'external':
         completemsg = 'complete'.encode('utf-8')
@@ -36,7 +35,7 @@ def commands(
                         \nrl: reverse rotation with low speed \
                         \nrm: reverse rotation with middle speed \
                         \nrh: reverse rotation with high speed \
-                        \nnXX (rYY): drive with set rotation and set speed [Hz/100] \
+                        \nnXX (rYY): drive with a set of rotation and speed [Hz/100] values \
                         \nstop: stop the motion \
                         \ncomplete: finish program \
                         \n-->")
@@ -116,7 +115,7 @@ def get_options():
         description='Set options.')
     parser.add_argument(
         '--usbport', dest='usbport',
-        type=str, default="COM11",
+        type=str, default=None,
         help='set usb port number for the DINV U4 cable')
     parser.add_argument(
         '--command_from', dest='command_from',
