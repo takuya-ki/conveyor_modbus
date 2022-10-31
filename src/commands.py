@@ -98,6 +98,9 @@ def commands(
                     direction = 'reverse'
                 try:
                     dmh.move(direction, key[1:])
+                    if command_mode == 'external':
+                        # TODO: check if it's working properly
+                        clientsock.sendall(completemsg)
                 except ValueError:
                     pass
             else:
