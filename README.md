@@ -1,5 +1,8 @@
 # conveyor_modbus
 
+[![support level: community](https://img.shields.io/badge/support%20level-community-lightgray.svg)](http://rosindustrial.org/news/2016/10/7/better-supporting-a-growing-ros-industrial-software-platform)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
 Controller for Belcon Mini III series DMH conveyor.
 
 
@@ -8,6 +11,7 @@ Controller for Belcon Mini III series DMH conveyor.
 - Windows 10 machine
 - Ubuntu machine (for an external machine)
 - Python 3.7.3
+  - pyserial==3.5
   - pymodbus==2.5.3
 
 
@@ -16,8 +20,8 @@ Controller for Belcon Mini III series DMH conveyor.
 1. Install driver for [DINV U4 cable](https://www.diatrend.com/IFcable/usb/dinv-u4.php)  
    Install USB serial converter from [here](https://www.diatrend.com/download/driver.htm)  
 2. Install software  
-	`$ git clone git@github.com:takuya-ki/conveyor_modbus.git; cd conveyor_modbus`  
-	`$ pip install -r requirements.txt`
+	`$ git clone https://github.com/takuya-ki/conveyor_modbus.git --depth 1`  
+	`$ cd conveyor_modbus; pip install -r requirements.txt`
 
 ### Setting of inverter controller
 
@@ -46,7 +50,7 @@ Controller for Belcon Mini III series DMH conveyor.
 # Usage examples
 ## Preparations
 
-#### 1. Check the port numer with device manager (e.g. COM3)  
+#### 1. Check the port numer with device manager (e.g. COM7)  
 <img src=image/device_manager.png width=500>  
 
 #### 2. Connect [DINV U4 cable](https://www.diatrend.com/IFcable/usb/dinv-u4.php) between the controller for inverter and your computer.
@@ -54,7 +58,7 @@ Controller for Belcon Mini III series DMH conveyor.
 
 ## Directly commanding on a Windows 10 machine (ip address: 169.0.0.1, subnet mask: 255:255:255:0)
 #### 1. Change the network connection setting of the ethernet adaptor  
-<img src=image/windows_setting.png width=400>  
+<img src=image/network_windows.png width=400>  
 
 #### 2. Execute scripts (Check no objects on the conveyor!)  
     $ python src/demo.py --num_repeat 1 --speed high --initial_direction reverse  
@@ -63,8 +67,10 @@ Controller for Belcon Mini III series DMH conveyor.
 
 ## Sending commands from an Ubuntu machine (ip address: 169.0.0.2, subnet mask: 255:255:255:0)
 
-1. Make a local area network via a network hub by connecting between computers and the hub
-2. Execute scripts on the Windows 10 machine as below (Check no objects on the conveyor!)  
+1. Make a local area network via a network hub by connecting between computers and the hub  
+<img src=image/network_ubuntu.png width=400>  
+
+1. Execute scripts on the Windows 10 machine as below (Check no objects on the conveyor!)  
     `$ python src/commands.py --command_from external --ip 169.0.0.1 --sockport 50007`  
 
 #### Programmed demonstration  
