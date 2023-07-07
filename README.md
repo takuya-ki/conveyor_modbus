@@ -1,11 +1,10 @@
 # conveyor_modbus
 
-[![support level: community](https://img.shields.io/badge/support%20level-community-lightgray.svg)](http://rosindustrial.org/news/2016/10/7/better-supporting-a-growing-ros-industrial-software-platform)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 Controller for [Belcon Mini III series DMH](https://www.okurayusoki.co.jp/eng/product/conveyor/lightweight/belcon_mini/) conveyor of Okura Yusoki.
 
-# Requirements
+## Requirements
 
 - Windows 10 machine
 - Ubuntu machine (for an external machine)
@@ -13,7 +12,7 @@ Controller for [Belcon Mini III series DMH](https://www.okurayusoki.co.jp/eng/pr
   - pyserial==3.5
   - pymodbus==2.5.3
 
-# Installation
+## Installation
 
 1. Install driver for [DINV U4 cable](https://www.diatrend.com/IFcable/usb/dinv-u4.php)  
    Install USB serial converter from [here](https://www.diatrend.com/download/driver.htm)  
@@ -47,8 +46,8 @@ cd conveyor_modbus; pip install -r requirements.txt
 2. Set NET mode
 
 
-# Usage examples
-## Preparations
+## Usage examples
+### Preparations
 
 #### 1. Check the port numer with device manager (e.g. COM3)  
 <img src=image/device_manager.png width=500>  
@@ -56,7 +55,7 @@ cd conveyor_modbus; pip install -r requirements.txt
 #### 2. Connect [DINV U4 cable](https://www.diatrend.com/IFcable/usb/dinv-u4.php) between the controller for inverter and your computer.
 <img src=image/connection.jpg width=200>  
 
-## Directly commanding on a Windows 10 machine (ip address: 169.0.0.1, subnet mask: 255:255:255:0)
+### Directly commanding on a Windows 10 machine (ip address: 169.0.0.1, subnet mask: 255:255:255:0)
 #### 1. Change the network connection setting of the ethernet adaptor  
 <img src=image/network_windows.png width=400>  
 
@@ -71,7 +70,7 @@ python src/check_params.py --params 160,117,118,120,122,123,124,343,502,549,77,7
 python src/commands.py --command_from local
 ```
 
-## Sending commands from an Ubuntu machine (ip address: 169.0.0.2, subnet mask: 255:255:255:0)
+### Sending commands from an Ubuntu machine (ip address: 169.0.0.2, subnet mask: 255:255:255:0)
 
 1. Make a local area network via a network hub by connecting between computers and the hub  
 <img src=image/network_ubuntu.png width=400>  
@@ -93,10 +92,10 @@ python src/demo_external.py --num_repeat 1 --speed high --initial_direction reve
 python src/commands_external.py --ip 169.0.0.1 --sockport 50007
 ```
 
-# Author / Contributor
+## Author / Contributor
 
 [Takuya Kiyokawa](https://takuya-ki.github.io/)
 
-# License
+## License
 
 This software is released under the MIT License, see [LICENSE](./LICENSE).
