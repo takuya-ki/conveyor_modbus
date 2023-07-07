@@ -5,7 +5,6 @@
 
 Controller for [Belcon Mini III series DMH](https://www.okurayusoki.co.jp/eng/product/conveyor/lightweight/belcon_mini/) conveyor of Okura Yusoki.
 
-
 # Requirements
 
 - Windows 10 machine
@@ -14,14 +13,15 @@ Controller for [Belcon Mini III series DMH](https://www.okurayusoki.co.jp/eng/pr
   - pyserial==3.5
   - pymodbus==2.5.3
 
-
 # Installation
 
 1. Install driver for [DINV U4 cable](https://www.diatrend.com/IFcable/usb/dinv-u4.php)  
    Install USB serial converter from [here](https://www.diatrend.com/download/driver.htm)  
 2. Install software  
-	`$ git clone https://github.com/takuya-ki/conveyor_modbus.git --depth 1`  
-	`$ cd conveyor_modbus; pip install -r requirements.txt`
+```bash
+git clone https://github.com/takuya-ki/conveyor_modbus.git --depth 1
+cd conveyor_modbus; pip install -r requirements.txt
+```
 
 ### Setting of inverter controller
 
@@ -61,9 +61,15 @@ Controller for [Belcon Mini III series DMH](https://www.okurayusoki.co.jp/eng/pr
 <img src=image/network_windows.png width=400>  
 
 #### 2. Execute scripts (Check no objects on the conveyor!)  
-    $ python src/demo.py --num_repeat 1 --speed high --initial_direction reverse  
-    $ python src/check_params.py --params 160,117,118,120,122,123,124,343,502,549,77,79,551,340  
-    $ python src/commands.py --command_from local  
+```bash
+python src/demo.py --num_repeat 1 --speed high --initial_direction reverse
+```
+```bash
+python src/check_params.py --params 160,117,118,120,122,123,124,343,502,549,77,79,551,340
+```
+```bash
+python src/commands.py --command_from local
+```
 
 ## Sending commands from an Ubuntu machine (ip address: 169.0.0.2, subnet mask: 255:255:255:0)
 
@@ -71,16 +77,21 @@ Controller for [Belcon Mini III series DMH](https://www.okurayusoki.co.jp/eng/pr
 <img src=image/network_ubuntu.png width=400>  
 
 2. Execute scripts on the Windows 10 machine as below (Check no objects on the conveyor!)  
-    `$ python src/commands.py --command_from external --ip 169.0.0.1 --sockport 50007`  
+```bash
+python src/commands.py --command_from external --ip 169.0.0.1 --sockport 50007
+```
 
 #### Programmed demonstration  
 3. Execute scripts on the Ubuntu machine as below (Check no objects on the conveyor!)  
-    `$ python src/demo_external.py --num_repeat 1 --speed high --initial_direction reverse --ip 169.0.0.1 --sockport 50007`  
+```bash
+python src/demo_external.py --num_repeat 1 --speed high --initial_direction reverse --ip 169.0.0.1 --sockport 50007
+```
 
 #### User's input commands  
 3. Execute scripts on the Ubuntu machine as below (Check no objects on the conveyor!)  
-    `$ python src/commands_external.py --ip 169.0.0.1 --sockport 50007`  
-
+```bash
+python src/commands_external.py --ip 169.0.0.1 --sockport 50007
+```
 
 # Author / Contributor
 
