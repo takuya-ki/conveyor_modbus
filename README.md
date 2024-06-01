@@ -1,6 +1,7 @@
 # conveyor_modbus
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+![repo size](https://img.shields.io/github/repo-size/takuya-ki/conveyor_modbus)
 
 Controller for [Belcon Mini III series DMH](https://www.okurayusoki.co.jp/eng/product/conveyor/lightweight/belcon_mini/) conveyor of Okura Yusoki.
 
@@ -18,8 +19,7 @@ Controller for [Belcon Mini III series DMH](https://www.okurayusoki.co.jp/eng/pr
    Install USB serial converter from [here](https://www.diatrend.com/download/driver.htm)  
 2. Install software  
 ```bash
-git clone https://github.com/takuya-ki/conveyor_modbus.git --depth 1
-cd conveyor_modbus; pip install -r requirements.txt
+git clone https://github.com/takuya-ki/conveyor_modbus.git --depth 1 && cd conveyor_modbus && pip install -r requirements.txt
 ```
 
 ### Setting of inverter controller
